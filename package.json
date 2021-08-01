@@ -22,7 +22,8 @@
   "homepage": "https://github.com/camfeghali/nipso-nagro-egnellahc#readme",
   "description": "",
   "devDependencies": {
-    "mocha": "^9.0.3"
+    "mocha": "^9.0.3",
+    "nyc": "^15.1.0"
   },
   "dependencies": {
     "expect.js": "^0.3.1"
