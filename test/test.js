@@ -1,7 +1,6 @@
-var output = require("../index.js");
+const rebates = require("../rebates");
+let calculator = require("../calculator")(rebates);
 var assert = require("assert");
-
-console.log("output: ", output);
 
 describe("Array", function () {
   describe("#indexOf()", function () {
