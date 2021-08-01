@@ -1,0 +1,26 @@
+{
+  "name": "coding-challenge-spare-parts",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "directories": {
+    "test": "tests"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/camfeghali/nipso-nagro-egnellahc.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/camfeghali/nipso-nagro-egnellahc/issues"
+  },
+  "homepage": "https://github.com/camfeghali/nipso-nagro-egnellahc#readme",
+  "description": "",
+  "devDependencies": {
+    "mocha": "^9.0.3"
+  }
+}
