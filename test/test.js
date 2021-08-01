@@ -1,11 +1,13 @@
 const rebates = require("../rebates");
-let calculator = require("../calculator")(rebates);
-var assert = require("assert");
+let logger = require("../logger")(rebates);
+var expect = require("expect.js");
 
-describe("Array", function () {
-  describe("#indexOf()", function () {
-    it("should return -1 when the value is not present", function () {
-      assert.equal([1, 2, 3].indexOf(4), -1);
+describe("Logger", function () {
+  describe("#calculateBonusOrgans()", function () {
+    it("should return {heart: 0, lung: 1} when passing ('liver', 2)", function () {
+      let result = logger.calculateBonusOrgans("liver", 2);
+      console.log("result: ", result);
+      expect(result).to.eql({ heart: 0, lung: 1 });
     });
   });
 });
