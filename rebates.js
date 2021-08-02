@@ -15,7 +15,7 @@ module.exports = {
     required: 4,
     freeOrgans: {
       liver: 1,
-      hear: 1,
+      heart: 1,
     },
   },
 };

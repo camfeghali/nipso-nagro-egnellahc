@@ -18,11 +18,11 @@ function logger(rebates) {
     let purchasedOrgan = row["organ"];
     let { cash, price } = row;
     let purchasedOrganCount = Math.floor(cash / price);
-    let bonusOrgans = calculateBonusOrgans(purchasedOrgan, purchasedOrganCount);
-    let organsReceived = {
-      ...{ [purchasedOrgan]: purchasedOrganCount },
-      ...bonusOrgans,
-    };
+    let organsReceived = calculateBonusOrgans(
+      purchasedOrgan,
+      purchasedOrganCount
+    );
+    organsReceived[purchasedOrgan] += purchasedOrganCount;
     printOrgansReceived(organsReceived);
   }
 
@@ -31,10 +31,8 @@ function logger(rebates) {
     let bonusOrgans = {};
 
     organs.forEach((organ) => {
-      if (purchasedOrgan != organ) {
-        let freeOrgan = rebates[purchasedOrgan]["freeOrgans"][organ];
-        bonusOrgans[organ] = freeOrgan ? freeOrgan * multiplier : 0;
-      }
+      let freeOrgan = rebates[purchasedOrgan]["freeOrgans"][organ];
+      bonusOrgans[organ] = freeOrgan ? freeOrgan * multiplier : 0;
     });
     return bonusOrgans;
   }
