@@ -1,50 +1,49 @@
-const rebates = require("./rebates");
-const organs = Object.keys(rebates);
 let env = process.env.NODE_ENV;
 
-let publicApi =
-  env === "test"
-    ? {
-        outputOrgansReceived,
-        calculateOrgansReceived,
-        printOrgansReceived,
-      }
-    : {
-        outputOrgansReceived,
-      };
-
-function outputOrgansReceived(row) {
-  let purchasedOrgan = row["organ"];
-  let { cash, price } = row;
-  let purchasedOrganCount = Math.floor(cash / price);
-  let organsReceived = calculateOrgansReceived(
-    purchasedOrgan,
-    purchasedOrganCount
-  );
-  printOrgansReceived(organsReceived);
-}
-
-function calculateOrgansReceived(purchasedOrgan, purchasedOrganCount) {
-  let multiplier = purchasedOrganCount / rebates[purchasedOrgan]["required"];
+function Logger(rebates) {
+  let purchasedOrgan, purchasedOrganCount;
   let organsReceived = {};
+  const organs = Object.keys(rebates);
+  let publicApi =
+    env === "test"
+      ? {
+          outputOrgansReceived,
+          calculateOrgansReceived,
+          printOrgansReceived,
+        }
+      : {
+          outputOrgansReceived,
+        };
 
-  organs.forEach((organ) => {
-    let freeOrgan = rebates[purchasedOrgan]["freeOrgans"][organ];
-    organsReceived[organ] = freeOrgan ? freeOrgan * multiplier : 0;
-  });
-  organsReceived[purchasedOrgan] += purchasedOrganCount;
+  function outputOrgansReceived(row) {
+    purchasedOrgan = row["organ"];
+    let { cash, price } = row;
+    purchasedOrganCount = Math.floor(cash / price);
+    calculateOrgansReceived();
+    printOrgansReceived();
+  }
 
-  return organsReceived;
+  function calculateOrgansReceived() {
+    let multiplier = purchasedOrganCount / rebates[purchasedOrgan]["required"];
+
+    organs.forEach((organ) => {
+      let freeOrgan = rebates[purchasedOrgan]["freeOrgans"][organ];
+      organsReceived[organ] = freeOrgan ? freeOrgan * multiplier : 0;
+    });
+
+    organsReceived[purchasedOrgan] += purchasedOrganCount;
+  }
+
+  function printOrgansReceived() {
+    let STDOUT = "";
+    organs.forEach((organ) => {
+      STDOUT += `${organ} ${organsReceived[organ]}, `;
+    });
+
+    console.log(STDOUT.slice(0, STDOUT.length - 2));
+  }
+
+  return publicApi;
 }
 
-function printOrgansReceived(organsReceived) {
-  let STDOUT = "";
-
-  organs.forEach((organ) => {
-    STDOUT += `${organ} ${organsReceived[organ]}, `;
-  });
-
-  console.log(STDOUT.slice(0, STDOUT.length - 2));
-}
-
-module.exports = publicApi;
+module.exports = Logger;

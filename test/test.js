@@ -1,9 +1,13 @@
 const Logger = require("../logger");
-var expect = require("expect.js");
-var assert = require("assert");
+const rebates = require("../rebates");
+const expect = require("expect.js");
+const assert = require("assert");
+
+const logger = new Logger(rebates);
+console.log("logger: ", logger);
 
 describe("Logger", function () {
-  var output, write;
+  let output, write;
   write = process.stdout.write;
 
   beforeEach(function () {
@@ -18,21 +22,21 @@ describe("Logger", function () {
 
   describe("#calculateOrgansReceived()", function () {
     it("should return { heart: 0, liver: 2, lung: 1 } when passing ('liver', 2)", function () {
-      let result = Logger.calculateOrgansReceived("liver", 2);
+      let result = logger.calculateOrgansReceived();
       assert.deepStrictEqual(result, { heart: 0, liver: 2, lung: 1 });
     });
   });
 
   describe("#printOrgansReceived()", function () {
     it("prints the organs received in the correct order and right quantities", function () {
-      Logger.printOrgansReceived({ liver: 2, heart: 0, lung: 1 });
+      logger.printOrgansReceived();
       expect(output).to.eql("heart 0, liver 2, lung 1\n");
     });
   });
 
   describe("#outputOrgansReceived()", function () {
     it("should log 'heart 0, liver 2, lung 1' when row is 'liver',10,5,2", function () {
-      Logger.outputOrgansReceived({
+      logger.outputOrgansReceived({
         organ: "liver",
         cash: 10,
         price: 5,
