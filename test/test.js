@@ -4,7 +4,6 @@ const expect = require("expect.js");
 const assert = require("assert");
 
 const logger = new Logger(rebates);
-console.log("logger: ", logger);
 
 describe("Logger", function () {
   let output, write;
