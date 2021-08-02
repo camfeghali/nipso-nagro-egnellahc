@@ -1,6 +1,7 @@
+const expect = require("expect.js");
+const assert = require("assert");
 const Logger = require("../logger");
-var expect = require("expect.js");
-var assert = require("assert");
+const rebates = require("../rebates");
 
 describe("Logger", function () {
   var output, write;
@@ -17,22 +18,32 @@ describe("Logger", function () {
   });
 
   describe("#calculateOrgansReceived()", function () {
-    it("should return { heart: 0, liver: 2, lung: 1 } when passing ('liver', 2)", function () {
-      let result = Logger.calculateOrgansReceived("liver", 2);
-      assert.deepStrictEqual(result, { heart: 0, liver: 2, lung: 1 });
+    it("sets logger.organsReceived to { heart: 0, liver: 2, lung: 1 } when logger.purchasedOrgan = 'liver' and logger.purchasedOrganCount = 2", function () {
+      const logger = new Logger(rebates);
+      logger.purchasedOrgan = "liver";
+      logger.purchasedOrganCount = 2;
+      logger.calculateOrgansReceived();
+      assert.deepStrictEqual(logger.organsReceived, {
+        heart: 0,
+        liver: 2,
+        lung: 1,
+      });
     });
   });
 
   describe("#printOrgansReceived()", function () {
     it("prints the organs received in the correct order and right quantities", function () {
-      Logger.printOrgansReceived({ liver: 2, heart: 0, lung: 1 });
+      const logger = new Logger(rebates);
+      logger.organsReceived = { heart: 0, liver: 2, lung: 1 };
+      logger.printOrgansReceived();
       expect(output).to.eql("heart 0, liver 2, lung 1\n");
     });
   });
 
   describe("#outputOrgansReceived()", function () {
     it("should log 'heart 0, liver 2, lung 1' when row is 'liver',10,5,2", function () {
-      Logger.outputOrgansReceived({
+      const logger = new Logger(rebates);
+      logger.outputOrgansReceived({
         organ: "liver",
         cash: 10,
         price: 5,
