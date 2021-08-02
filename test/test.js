@@ -20,20 +20,6 @@ describe("Logger", function () {
     process.stdout.write = write;
   });
 
-  describe("#calculateOrgansReceived()", function () {
-    it("should return { heart: 0, liver: 2, lung: 1 } when passing ('liver', 2)", function () {
-      let result = logger.calculateOrgansReceived();
-      assert.deepStrictEqual(result, { heart: 0, liver: 2, lung: 1 });
-    });
-  });
-
-  describe("#printOrgansReceived()", function () {
-    it("prints the organs received in the correct order and right quantities", function () {
-      logger.printOrgansReceived();
-      expect(output).to.eql("heart 0, liver 2, lung 1\n");
-    });
-  });
-
   describe("#outputOrgansReceived()", function () {
     it("should log 'heart 0, liver 2, lung 1' when row is 'liver',10,5,2", function () {
       logger.outputOrgansReceived({
