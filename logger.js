@@ -17,10 +17,10 @@ class Logger {
     let { cash, price } = row;
     this.purchasedOrganCount = Math.floor(cash / price);
     this.calculateOrgansReceived();
-    this.#printOrgansReceived();
+    this.printOrgansReceived();
   }
 
-  #printOrgansReceived() {
+  printOrgansReceived() {
     let STDOUT = "";
     this.organs.forEach((organ) => {
       STDOUT += `${organ} ${this.organsReceived[organ]}, `;
