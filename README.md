@@ -54,9 +54,5 @@ The `index.js` is the entry point to the program:
 
 ## Notes
 
-Another version of the program exists in the 
-
-[refactor-to-oop]: https://github.com/camfeghali/nipso-nagro-egnellahc/tree/refactor-to-oop
-
- branch where the `Logger` is developed using Javascript `class`. That version has more tests because I did not figure out how to test private (unexposed) functions when taking advantage of closures.
+Another version of the program exists in the **refactor-to-oop** where the `Logger` is developed using Javascript `class`. That version has more tests because I did not figure out how to test private (unexposed) functions when taking advantage of closures.
 
