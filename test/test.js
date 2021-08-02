@@ -19,9 +19,9 @@ describe("Logger", function () {
     process.stdout.write = write;
   });
   describe("#calculateBonusOrgans()", function () {
-    it("should return {heart: 0, lung: 1} when passing ('liver', 2)", function () {
+    it("should return { heart: 0, liver: 0, lung: 1 } when passing ('liver', 2)", function () {
       let result = logger.calculateBonusOrgans("liver", 2);
-      expect(result).to.eql({ heart: 0, lung: 1 });
+      assert.deepStrictEqual(result, { heart: 0, liver: 0, lung: 1 });
     });
   });
 
